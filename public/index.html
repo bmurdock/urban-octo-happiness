@@ -8,6 +8,40 @@
 <body>
     <h1>Welcome!</h1>
     <p>This is not going to be anything special.</p>
+
+    <form id="myform">
+        <input id="username" type="text" placeholder="Name" />
+        <input id="property" type="text" placeholder="Property" />
+        <input id="fetcher" type="submit" value="Fetch" />
+    </form>
+    <div id="output">
+
+    </div>
+
+    <script>
+        const user = document.getElementById('username');
+        const prop = document.getElementById('property');
+        const fetcher = document.getElementById('fetcher');
+        const myform = document.getElementById('myform');
+        const output = document.getElementById('output');
+
+        myform.addEventListener('submit', (event) => {
+            event.preventDefault();
+            fetch(`http://localhost:3000/lookup/${user.value}/${prop.value}`)
+                .then((response) => {
+                    console.log('response: ', response);
+                    return response.json();
+                })
+                .then((data) => {
+                    console.log(data);
+                    output.textContent = data;
+                })
+                .catch((err) => {
+                    console.log('Error fetching the page: ', err);
+                })
+
+        })
+    </script>
 </body>
 
 </html>
